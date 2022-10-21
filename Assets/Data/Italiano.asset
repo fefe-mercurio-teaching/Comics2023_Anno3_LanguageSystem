@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc7b3ada54f44fa284b2b1bae44728f, type: 3}
   m_Name: Italiano
   m_EditorClassIdentifier: 
-  languageName: Italiano
+  languageName: Italiano (it-IT)
   strings:
-    keys: []
-    values: []
+    keys:
+    - NEW_GAME
+    - LOAD_GAME
+    values:
+    - Nuova Partita
+    - Carica Partita

@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   languageName: English (en-US)
   strings:
-    keys: []
-    values: []
+    keys:
+    - NEW_GAME
+    - LOAD_GAME
+    values:
+    - New Game
+    - Load Game
