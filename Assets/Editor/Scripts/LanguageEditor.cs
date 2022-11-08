@@ -167,14 +167,44 @@ public class LanguageEditor : EditorWindow
 
             if (path.Length > 0)
             {
-                string json = JsonUtility.ToJson(selectedLanguage);
+                string json = JsonUtility.ToJson(selectedLanguage.GetExportedLanguage());
+
+                Debug.Log(json);
+                
                 File.WriteAllText(path, json);
             }
         }
 
         if (GUILayout.Button("Import"))
         {
-            
+            string path = EditorUtility.OpenFilePanel("Import", String.Empty, "json");
+
+            if (path.Length > 0)
+            {
+                string json = File.ReadAllText(path);
+
+                Language.ExportedLanguage importedLanguage = JsonUtility.FromJson<Language.ExportedLanguage>(json);
+
+                string languagePath = EditorUtility.SaveFilePanelInProject("Import",
+                    importedLanguage.languageName + ".asset", "asset", "Dove vuoi importare il nuovo linguaggio?");
+
+                if (languagePath.Length > 0)
+                {
+                    Language newLanguage = ScriptableObject.CreateInstance<Language>();
+                    newLanguage.ImportLanguage(importedLanguage);
+                    
+                    AssetDatabase.CreateAsset(newLanguage, languagePath);
+                    EditorUtility.SetDirty(newLanguage);
+                }
+
+                //Debug.Log(importedLanguage.languageName);
+
+                // Language importedLanguage = ScriptableObject.CreateInstance<Language>();
+                //
+                // importedLanguage = JsonUtility.FromJson<Language>(json);
+                //
+                // Debug.Log(importedLanguage.languageName);
+            }
         }
         
         EditorGUILayout.EndHorizontal();
